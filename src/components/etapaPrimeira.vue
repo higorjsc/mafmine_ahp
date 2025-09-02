@@ -194,6 +194,7 @@ export default {
             this.$store.dispatch("changeMatrizPrimeira", matrizPrimeira)
         },
         calcula(matrizPrimeira) {
+
             // Normalização da matriz
             const somaColunaMatriz = (matriz, col, jmax) => {
                 let soma = 0
@@ -269,7 +270,7 @@ export default {
             }
             // Cálculo do CI
             const consistenceIndex = []
-            const n = (consistence.length)
+            const n = (matrizPrimeira[0].length)
             for (let i = 0; i < consistence.length; i++) {
                 consistenceIndex.push(
                     (lambda[i] - n) / (n - 1)
@@ -282,7 +283,6 @@ export default {
                     consistenceIndex[i] / (RI[n])
                 )
             }
-            console.log(consistenceIndex)
             // Armazenamento de valores calculados na matrizPrimeira
             const armazenaCalculos = (index) => {
                 const objeto = {
@@ -301,6 +301,7 @@ export default {
             for (let index = 0; index < matrizPrimeira.length; index++) {
                 matrizPrimeira[index].push(armazenaCalculos(index))
             }
+            console.log("matrizPrimeira", matrizPrimeira)
             return matrizPrimeira
         },
         vetorPeso(index) {

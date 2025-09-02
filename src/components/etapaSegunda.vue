@@ -246,6 +246,7 @@ export default {
                 return objeto
             }
             matrizSegunda.push(armazenaCalculos())
+            console.log("matrizSegunda", matrizSegunda)
             return matrizSegunda
         },
         vetorPeso() {
