@@ -269,7 +269,7 @@ export default {
             }
             // Cálculo do CI
             const consistenceIndex = []
-            const n = (consistence.length - 1)
+            const n = (consistence.length)
             for (let i = 0; i < consistence.length; i++) {
                 consistenceIndex.push(
                     (lambda[i] - n) / (n - 1)
@@ -282,6 +282,7 @@ export default {
                     consistenceIndex[i] / (RI[n])
                 )
             }
+            console.log(consistenceIndex)
             // Armazenamento de valores calculados na matrizPrimeira
             const armazenaCalculos = (index) => {
                 const objeto = {
