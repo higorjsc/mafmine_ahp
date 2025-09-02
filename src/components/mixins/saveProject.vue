@@ -38,7 +38,7 @@ export default {
         }
     },
     created() {
-        this.debouncedSave = _.debounce(this.debouncedSaveProject, 5000)
+        this.debouncedSave = _.debounce(this.debouncedSaveProject, 500)
     },
     methods:{
         saveProject() {
