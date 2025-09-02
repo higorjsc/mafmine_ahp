@@ -65,11 +65,13 @@ export default {
                     this.arranjoOptions()
                 )
             }
+            console.log("Slideres da primeira etapa: ", slideres)
             return slideres
         },
         // Cria os slideres da segunda etapa a partir do arranjo de critérios
         criaSlideresSegunda() {
             const slideres = this.arranjoCriterios()
+            console.log("Slideres da segunda etapa: ", slideres)
             return slideres
         },
         mergeSlideresMatrix(oldSlideres, newSlideres) {
@@ -89,7 +91,7 @@ export default {
             }
 
 
-            return mergedSlideres   
+            return mergedSlideres
         },
         mergeSlideresVetor(oldSlideres, newSlideres) {
             // Clona estrutura do novo slider para não alterar o original
@@ -110,17 +112,15 @@ export default {
         criaSlideres() {
             const newSlideresPrimeira = this.criaSlideresPrimeira()
             const newSlideresSegunda = this.criaSlideresSegunda()
-
             // Cria novos slideres
-            if (!this.currentImportFlag && this.currentViewProgress == 1) {
-                console.log(!this.currentImportFlag, this.currentViewProgress == 1)
+            if (!this.currentImportFlag) {
                 console.log("Criando Slideres")
                 this.$store.dispatch("changeSlideresPrimeira", newSlideresPrimeira)
                 this.$store.dispatch("changeSlideresSegunda", newSlideresSegunda)
             }
 
             // Adiciona novos slideres aos antigos sem resetar valores
-            if(this.currentImportFlag || this.currentViewProgress > 1) {
+            if(this.currentImportFlag) {
                 console.log("Mesclando novos Slideres")
                 const oldSlideresPrimeira = this.$store.getters.currentSlideresPrimeira
                 const oldSlideresSegunda = this.$store.getters.currentSlideresSegunda
@@ -128,7 +128,6 @@ export default {
                 const mergedSlideresSegunda = this.mergeSlideresVetor(oldSlideresSegunda, newSlideresSegunda)
                 this.$store.dispatch("changeSlideresPrimeira", mergedSlideresPrimeira)
                 this.$store.dispatch("changeSlideresSegunda", mergedSlideresSegunda)
-
             }
         }
     }

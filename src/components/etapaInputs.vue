@@ -183,9 +183,9 @@ export default {
         this.updateFromStore()
         this.criaSlideres()
     },
-    beforeUnmount() {
-        this.updateFromStore()
-        this.criaSlideres()
+    async beforeUnmount() {
+        await this.updateFromStore()
+        await this.criaSlideres()
     },
     methods: {
         importHandler() {

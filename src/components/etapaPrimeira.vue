@@ -300,12 +300,7 @@ export default {
             for (let index = 0; index < matrizPrimeira.length; index++) {
                 matrizPrimeira[index].push(armazenaCalculos(index))
             }
-            // console.log("PESOS:", pesos)
-            // console.log("WS:", ws)
-            // console.log("CONS:", consistence)
-            // console.log("Lambda:", lambda)
-            // console.log("CI:", consistenceIndex)
-            console.log(matrizPrimeira)
+            console.log("matrizPrimeira", matrizPrimeira)
             return matrizPrimeira
         },
         vetorPeso(index) {
