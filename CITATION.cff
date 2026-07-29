@@ -1,44 +1,46 @@
-cff-version: 1.0.0
+cff-version: 1.0.1
 message: "If you use this software, please cite it as below."
 title: "Analytical Hierarchy Process Decision Tool"
-abstract: "Analytical Hierarchy Process Decision Tool is a web-based tool designed to facilitate decision-making across various domains using the Analytical Hierarchy Process (AHP). It allows users to define criteria and alternatives, perform pairwise comparisons with intuitive slider controls, and generate priority vectors for robust evaluation of options."
+type: software
+
+abstract: >-
+  Analytical Hierarchy Process Decision Tool is a web-based application
+  designed to support multicriteria decision-making using the Analytical
+  Hierarchy Process (AHP).
+
 authors:
-  - name: "Higor José Silva Campos"
+  - family-names: "Campos"
+    given-names: "Higor"
     email: "higor.jose@ufrgs.br"
     affiliation: "Federal University of Rio Grande do Sul"
-    orcid: "0009-0001-4762-6065"
-  - name: "Petter, C."
-    affiliation: "Federal University of Rio Grande do Sul"
-    orcid: "0000-0003-4959-4359"
+    orcid: "https://orcid.org/0009-0001-4762-6065"
 
-date-released: "2025-02"
-version: "1.0.0"
+  - family-names: "Cardozo"
+    given-names: "Fernando, A. C."
+    affiliation: "Federal University of Rio Grande do Sul"
+    orcid: "https://orcid.org/0000-0001-5309-4061"
+
+  - family-names: "Pinheiro"
+    given-names: "Upiragibe, V."
+    affiliation: "Federal University of Rio Grande do Sul"
+    orcid: "https://orcid.org/0009-0004-4334-7589"
+
+  - family-names: "Petter"
+    given-names: "Carlos, O."
+    affiliation: "Federal University of Rio Grande do Sul"
+    orcid: "https://orcid.org/0000-0003-4959-4359"
+
+version: "1.0.1"
+date-released: "2026-07-28"
 license: "MIT"
+
 repository-code: "https://github.com/higorjsc/mafmine_ahp"
-website: "https://www.mafmine.com.br/v3.1/tools/ahp/index.html"
+url: "https://www.mafmine.com.br/v3.1/tools/ahp/index.html"
+
 keywords:
   - "AHP"
   - "analytic hierarchy process"
   - "decision support"
-  - "decision-making"
-  - "mcdm"
-  - "multi-criteria decision-making"
-  - "web application"
+  - "multicriteria decision-making"
+  - "mining"
   - "Mafmine"
-  - "software tool"
-preferred-citation:
-  title: "Analytical Hierarchy Process Decision Tool"
-  authors:
-    - name: "Campos, H."
-      affiliation: "Federal University of Rio Grande do Sul"
-      orcid: "0009-0001-4762-6065"
-    - name: "Petter, C."
-      affiliation: "Federal University of Rio Grande do Sul"
-      orcid: "0000-0003-4959-4359"
-  year: 2025
-  version: "1.0.0"
-  url: "https://github.com/higorjsc/mafmine_ahp"
-  doi: ""
-  license: "MIT"
-  repository-code: "https://github.com/higorjsc/mafmine_ahp"
-  website: "https://www.mafmine.com.br/v3.1/tools/ahp/index.html"
