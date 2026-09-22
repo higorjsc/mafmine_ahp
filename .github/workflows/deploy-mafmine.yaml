@@ -3,6 +3,7 @@ name: Build AHP e deploy no Mafmine
 on:
   push:
     branches:
+      - master
       - main
 
   workflow_dispatch:
@@ -13,13 +14,13 @@ permissions:
 env:
   NODE_VERSION: "22"
 
-  # Pasta gerada pelo build do repositório MMS 2.0
+  # Pasta gerada pelo build do repositório AHP
   BUILD_DIR: "dist"
 
   # Pasta existente que será carregada pelo sparse checkout
   SPARSE_DIR: "v3.1/tools"
 
-  # Pasta exclusiva do MMS 2.0 dentro do Mafmine
+  # Pasta exclusiva do AHP dentro do Mafmine
   TARGET_DIR: "v3.1/tools/ahp"
 
   GITLAB_REPOSITORY: "devorama/mafmine"
@@ -34,14 +35,10 @@ jobs:
       # Repositório A:
       # git@github.com:higorjsc/mafmine_ahp.git
       - name: Baixar o repositório mafmine_ahp
-        uses: actions/checkout@v7
-        with:
-          repository: "higorjsc/mafmine_ahp"
-          ref: main
-          fetch-depth: 1
+        uses: actions/checkout@v4
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
