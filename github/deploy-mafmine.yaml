@@ -1,0 +1,116 @@
+name: Build AHP e deploy no Mafmine
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "22"
+
+  # Pasta gerada pelo build do repositório MMS 2.0
+  BUILD_DIR: "dist"
+
+  # Pasta existente que será carregada pelo sparse checkout
+  SPARSE_DIR: "v3.1/tools"
+
+  # Pasta exclusiva do MMS 2.0 dentro do Mafmine
+  TARGET_DIR: "v3.1/tools/ahp"
+
+  GITLAB_REPOSITORY: "devorama/mafmine"
+  GITLAB_BRANCH: "master"
+
+jobs:
+  build-and-deploy:
+    name: Build e deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # Repositório A:
+      # git@github.com:higorjsc/mafmine_ahp.git
+      - name: Baixar o repositório mafmine_ahp
+        uses: actions/checkout@v7
+        with:
+          repository: "higorjsc/mafmine_ahp"
+          ref: main
+          fetch-depth: 1
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Gerar build
+        run: npm run build
+
+      - name: Verificar pasta de build
+        run: |
+          if [ ! -d "$BUILD_DIR" ]; then
+            echo "::error::A pasta de build '$BUILD_DIR' não foi encontrada."
+            echo "Conteúdo da raiz do projeto:"
+            ls -la
+            exit 1
+          fi
+
+      # Repositório B:
+      # git@gitlab.com:devorama/mafmine.git
+      - name: Baixar a pasta tools do Mafmine
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          git clone \
+            --branch "$GITLAB_BRANCH" \
+            --single-branch \
+            --depth 1 \
+            --filter=blob:none \
+            --sparse \
+            "https://oauth2:${GITLAB_TOKEN}@gitlab.com/${GITLAB_REPOSITORY}.git" \
+            mafmine
+
+          cd mafmine
+          git sparse-checkout set "$SPARSE_DIR"
+
+      - name: Copiar build para mms_2.0
+        run: |
+          mkdir -p "mafmine/$TARGET_DIR"
+
+          rsync \
+            --archive \
+            --delete \
+            "$BUILD_DIR/" \
+            "mafmine/$TARGET_DIR/"
+
+      - name: Criar commit no Mafmine
+        working-directory: mafmine
+        run: |
+          git config user.name "higorjsc"
+          git config user.email "hh1217higorcampos@hotmail.com"
+
+          git add -A "$TARGET_DIR"
+
+          if git diff --cached --quiet; then
+            echo "O build não produziu alterações no Mafmine."
+            exit 0
+          fi
+
+          git commit \
+            -m "deploy: atualizar AHP" \
+            -m "Origem: higorjsc/mafmine_ahp@${GITHUB_SHA}"
+
+      - name: Enviar alterações para o GitLab
+        working-directory: mafmine
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          git push \
+            "https://oauth2:${GITLAB_TOKEN}@gitlab.com/${GITLAB_REPOSITORY}.git" \
+            "HEAD:${GITLAB_BRANCH}"
