@@ -15,7 +15,10 @@ h2{
     text-align: center;
 }
 body{
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 main {
     position: relative;
@@ -23,14 +26,11 @@ main {
     flex-direction: column;
     box-sizing: border-box;
     width: 98%;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin: 8px auto;
     border: var(--borda-simples);
     border-radius: 20px;
-    /* min-height: 700px; */
     overflow: hidden;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    background-color: #ffffff;
 }
 .container-tabview{
     box-sizing: border-box;
@@ -42,10 +42,10 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* padding-bottom: 15%; */
     box-sizing: border-box;
     min-height: 600px;
     max-height: 600px;
+    overflow-y: auto;
 }
 .section-esquerda{
     display: flex;
@@ -53,10 +53,10 @@ main {
     width: 30%;
     border-right: var(--borda-simples);
     box-sizing: border-box;
-    padding-left: 1%;
-    /* padding-bottom: 5%; */
-    overflow-y: scroll;
-    min-width: 150px;
+    padding: 10px 1% 20px;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    min-width: 260px;
     min-height: 600px;
     max-height: 600px;
 }
@@ -71,4 +71,18 @@ main {
 .button-import:hover {
     cursor: pointer;
     box-shadow: 0 0 10px var(--cor-tema);
+}
+
+@media (min-width: 1920px) and (min-height: 900px) {
+    .section-esquerda, .section-direita {
+        min-height: 700px;
+        max-height: 700px;
+    }
+}
+
+@media (min-width: 2560px) and (min-height: 1200px) {
+    .section-esquerda, .section-direita {
+        min-height: 820px;
+        max-height: 820px;
+    }
 }

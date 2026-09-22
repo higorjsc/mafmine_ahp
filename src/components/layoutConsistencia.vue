@@ -77,23 +77,66 @@ export default {
 </script>
 <style scoped>
 
+    .consistencia{
+        border-collapse: separate;
+        border-spacing: 2px;
+    }
     .consistencia tr{
         justify-content: space-evenly;
     }
+    .consistencia tr:not(:first-child){
+        height: 44px;
+    }
     .consistencia td{
-        min-width: 80px;
-        max-width: 80px;
-        height: 100%;
-        text-align: right;
+        min-width: 88px;
+        height: 44px;
+        box-sizing: border-box;
+        text-align: left;
+        padding-left: 8px;
+        font-size: 1rem;
+        font-family: monospace, system-ui, sans-serif;
     }
     #td-oculto{
-        color: white;
+        height: 48px;
+        box-sizing: border-box;
+        color: transparent;
+        user-select: none;
     }
     .consistencia th{
         text-align: center;
-        font-size: 10pt;
+        font-size: 11pt;
     }
     #td-cr{
         font-weight: bold;
+    }
+
+    @media (min-width: 1920px) {
+        .consistencia tr:not(:first-child){
+            height: 50px;
+        }
+        .consistencia td{
+            height: 50px;
+            min-width: 105px;
+            font-size: 1.15rem;
+            padding-left: 10px;
+        }
+        #td-oculto{
+            height: 52px;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .consistencia tr:not(:first-child){
+            height: 58px;
+        }
+        .consistencia td{
+            height: 58px;
+            min-width: 125px;
+            font-size: 1.3rem;
+            padding-left: 12px;
+        }
+        #td-oculto{
+            height: 60px;
+        }
     }
 </style>

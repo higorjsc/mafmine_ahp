@@ -189,22 +189,53 @@ export default {
 <style>
 .buttons-container{
     position: absolute;
-    bottom: 2%;
-    right: 1%;
+    bottom: 16px;
+    right: 20px;
     display: flex;
+    gap: 6px;
+    z-index: 10;
 }
 
 .project-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: var(--borda-simples);
     border-radius: 20px;
-    font-size: 10pt;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 8px 16px;
+    box-sizing: border-box;
     background-color: var(--cor-tema-alt);
     color: var(--cor-texto-tema);
-    margin-left: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 .project-button:hover {
     cursor: pointer;
     box-shadow: 0 0 10px var(--cor-tema);
+}
+
+@media (min-width: 1920px) {
+    .buttons-container {
+        bottom: 20px;
+        right: 24px;
+    }
+    .project-button {
+        font-size: 1rem;
+        padding: 8px 18px;
+    }
+}
+
+@media (min-width: 2560px) {
+    .buttons-container {
+        bottom: 24px;
+        right: 32px;
+    }
+    .project-button {
+        font-size: 1.15rem;
+        padding: 10px 22px;
+    }
 }
 .button-export {
     position: absolute;

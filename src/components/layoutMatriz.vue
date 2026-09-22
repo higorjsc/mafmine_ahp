@@ -76,29 +76,80 @@ export default {
     .matriz{
         width: 100%;
         height: 100%;
+        border-collapse: separate;
+        border-spacing: 2px;
     }
 
     .matriz tr{
         justify-content: space-evenly;
     }
+    .linha-valores{
+        height: 44px;
+    }
     .matriz td{
-        min-width: 60px;
-        max-width: 100px;
+        min-width: 76px;
+        width: 76px;
+        height: 44px;
+        box-sizing: border-box;
         text-align: center;
         border: var(--borda-simples);
         background-color: var(--cor-tema-alt);
         color: var(--cor-texto-tema);
+        font-size: 1.05rem;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .th-titulo-coluna{
-        min-width: 60px;
-        max-width: 150px;
-        font-size: 12pt;
+        min-width: 48px;
+        width: 48px;
+        font-size: 1.05rem;
         font-weight: bold;
-        text-align: left;
+        text-align: center;
+        height: 44px;
+        box-sizing: border-box;
     }
     .th-titulo-linha{
-        font-size: 12pt;
+        font-size: 1.1rem;
         font-weight: bold;
-        height: 50px;
+        height: 48px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    @media (min-width: 1920px) {
+        .linha-valores, .matriz td{
+            height: 50px;
+            min-width: 92px;
+            width: 92px;
+            font-size: 1.2rem;
+        }
+        .th-titulo-coluna{
+            height: 50px;
+            min-width: 56px;
+            width: 56px;
+            font-size: 1.2rem;
+        }
+        .th-titulo-linha{
+            height: 52px;
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .linha-valores, .matriz td{
+            height: 58px;
+            min-width: 110px;
+            width: 110px;
+            font-size: 1.35rem;
+        }
+        .th-titulo-coluna{
+            height: 58px;
+            min-width: 68px;
+            width: 68px;
+            font-size: 1.35rem;
+        }
+        .th-titulo-linha{
+            height: 60px;
+            font-size: 1.4rem;
+        }
     }
 </style>

@@ -77,12 +77,11 @@ export default {
 <style scoped>
     .etapas-container{
         display: flex;
-        align-items: center;
+        align-items: stretch;
         position: relative;
         width: 100%;
-        max-width: 100%;
-        height: 100%;
-        max-height: 305px;
+        height: 48px;
+        min-height: 48px;
         border-bottom: var(--borda-simples);
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
@@ -94,24 +93,24 @@ export default {
     .buttons-etapas{
         user-select: none;
         height: 100%;
-        width: calc(100%/3);
+        flex: 1;
         background-color: var(--cor-tema);
         opacity: 0.9;
         z-index: 2;
         overflow: hidden !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s ease;
+    }
+    .buttons-etapas:not(:last-child){
+        border-right: 1px solid rgba(255, 255, 255, 0.4);
     }
     .buttons-etapas:hover{
         opacity: 1;
         overflow: hidden !important;
-
     }
 
-    #first-etapa{
-        border-right: 2pt solid white;
-    }
-    #secound-etapa{
-        border-right: 2pt solid white;
-    }
     .link{
         color: var(--cor-texto-tema);
         z-index: 1;
@@ -122,11 +121,33 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: 600;
+        font-size: clamp(0.85rem, 1vw, 1.1rem);
+        letter-spacing: 0.5px;
         overflow: hidden !important;
-
     }
     .link:hover{
         cursor: pointer;
+    }
+
+    @media (min-width: 1920px) {
+        .etapas-container {
+            height: 54px;
+            min-height: 54px;
+        }
+        .link {
+            font-size: 1.15rem;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .etapas-container {
+            height: 60px;
+            min-height: 60px;
+        }
+        .link {
+            font-size: 1.25rem;
+        }
     }
 
 </style>

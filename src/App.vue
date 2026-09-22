@@ -81,11 +81,14 @@ export default {
 
 <style scoped>
 #body{
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 6px 0 16px;
+    margin: 0;
 }
 </style>

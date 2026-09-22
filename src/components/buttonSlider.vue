@@ -139,6 +139,9 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 h3 {
@@ -148,25 +151,30 @@ h3 {
 }
 .text-container{
     text-align: center;
+    max-width: 100%;
 }
 .span-container {
     width: 100%;
+    max-width: 100%;
     display: flex;
     font-size: 8pt;
-    gap: 15px;
+    box-sizing: border-box;
+    gap: 10px;
 }
 .left-span-container{
-    width: 52%;
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .right-span-container  {
-    width: 57.9%;
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 .slider-span{
     user-select: none;
@@ -212,6 +220,31 @@ input::-moz-range-thumb {
   border-radius: 50%;
   background: white;
   cursor: pointer;
+}
+
+@media (min-width: 1920px) {
+    h3 {
+        font-size: 1rem;
+    }
+    .span-container {
+        font-size: 9pt;
+    }
+}
+
+@media (min-width: 2560px) {
+    h3 {
+        font-size: 1.15rem;
+    }
+    .span-container {
+        font-size: 10pt;
+    }
+    input {
+        height: 8px;
+    }
+    input::-webkit-slider-thumb {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 </style>

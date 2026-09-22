@@ -43,17 +43,19 @@ egunda
                     :optionMatriz="criteriosSegunda"
                     :valueMatriz="matrizValores"
                 />
-                <vueVetor
-                    idVetor="matriz-segunda-etapa"
-                    tituloVetor="Peso"
-                    :valueVetor="vetorPeso()"
-                />
-                <vueConsistencia
-                    :RI="consistencia('ri')"
-                    :CI="consistencia('ci')"
-                    :CR="consistencia('cr')"
-                    :lambda="consistencia('lambda')"
-                />
+                <div class="container-vetor-cons">
+                    <vueVetor
+                        idVetor="matriz-segunda-etapa"
+                        tituloVetor="Peso"
+                        :valueVetor="vetorPeso()"
+                    />
+                    <vueConsistencia
+                        :RI="consistencia('ri')"
+                        :CI="consistencia('ci')"
+                        :CR="consistencia('cr')"
+                        :lambda="consistencia('lambda')"
+                    />
+                </div>
             </div>
         </div>
     </section>

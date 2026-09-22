@@ -85,10 +85,6 @@ export default {
                 {
                     id: "localizacao-2-footer",
                     texto: "localizacaoDoisFooter"
-                },
-                {
-                    id: "contato-footer",
-                    texto: "contatoFooter"
                 }
             ]
         }
@@ -108,9 +104,12 @@ export default {
         background-color: var(--cor-tema);
         border-radius: 30px;
         width: 98%;
+        margin: 8px auto 0;
         justify-content: space-around;
+        align-items: center;
         color: var(--cor-texto-tema);
-        border: var(--borda-simples)
+        border: var(--borda-simples);
+        box-sizing: border-box;
     }
     div{
         display: flex;

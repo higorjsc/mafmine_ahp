@@ -97,10 +97,25 @@ export default{
     }
     .menu-container {
         position: absolute;
-        right: 2%;
-        top: 6.5%;
+        right: 18px;
+        top: 56px;
+        z-index: 10;
         display: flex;
         flex-direction: column;
+    }
+
+    @media (min-width: 1920px) {
+        .menu-container {
+            top: 62px;
+            right: 22px;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .menu-container {
+            top: 70px;
+            right: 26px;
+        }
     }
 
     .menu-itens-container{
@@ -137,21 +152,27 @@ export default{
         display: none;
     }
     #label-show-menu{
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
         border-radius: 50%;
         border: var(--borda-simples);
         font-weight: bold;
-        font-size: 12pt;
+        font-size: 11pt;
         text-align: center;
         justify-self: end;
         align-self: end;
         color: var(--cor-texto-tema);
         background-color: var(--cor-tema);
+        user-select: none;
+        cursor: pointer;
     }
 
     #label-show-menu:hover{
-        transform: scale(1.2);
+        transform: scale(1.15);
         cursor: pointer;
     }
     .checkbox-with-label{

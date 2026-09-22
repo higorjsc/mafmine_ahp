@@ -24,12 +24,15 @@
 .container-esquerda{
     display: flex;
     flex-direction: column;
-    width: 98%;
-    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 .container-direita{
-    /* margin-left: 100px; */
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
 }
@@ -37,12 +40,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 14px;
 }
 .container-direita:hover{
     cursor: pointer;
 }
 .container-vetor-cons{
     display: flex;
-    gap: 2px;
+    align-items: flex-start;
+    gap: 4px;
 }

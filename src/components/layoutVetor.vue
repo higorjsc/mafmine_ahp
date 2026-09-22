@@ -60,24 +60,63 @@ export default {
         flex-direction: row;
     }
 
+    .vetor{
+        border-collapse: separate;
+        border-spacing: 2px;
+    }
     .vetor:hover{
         cursor: pointer;
     }
     .vetor tr{
         justify-content: space-evenly;
     }
+    .linha-valores{
+        height: 44px;
+    }
     .vetor td{
-        min-width: 60px;
-        max-width: 60px;
+        min-width: 76px;
+        width: 76px;
+        height: 44px;
+        box-sizing: border-box;
         text-align: center;
         background-color: var(--cor-tema-alt);
         color: var(--cor-texto-tema);
         border: var(--borda-simples);
+        font-size: 1.05rem;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .th-titulo-vetor{
-        font-size: 12pt;
+        font-size: 1.1rem;
         font-weight: bold;
-        height: 50px;
+        height: 48px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    @media (min-width: 1920px) {
+        .linha-valores, .vetor td{
+            height: 50px;
+            min-width: 92px;
+            width: 92px;
+            font-size: 1.2rem;
+        }
+        .th-titulo-vetor{
+            height: 52px;
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .linha-valores, .vetor td{
+            height: 58px;
+            min-width: 110px;
+            width: 110px;
+            font-size: 1.35rem;
+        }
+        .th-titulo-vetor{
+            height: 60px;
+            font-size: 1.4rem;
+        }
     }
 
 </style>

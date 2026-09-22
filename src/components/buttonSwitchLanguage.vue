@@ -62,8 +62,23 @@ export default {
 
     .switch-container{
         position: absolute;
-        right: 5%;
-        top: 6.5%;
+        right: 50px;
+        top: 56px;
+        z-index: 10;
+    }
+
+    @media (min-width: 1920px) {
+        .switch-container {
+            top: 62px;
+            right: 56px;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .switch-container {
+            top: 70px;
+            right: 64px;
+        }
     }
     .switch {
         display: none;

@@ -3,87 +3,104 @@
 
     <section class="section-resultados">
 
-        <div
-            class="container-centro"
-        >
-            <h3>
-                {{ $t('matrizPrioridadesGlobais') }}
-            </h3>
-            <table
-                class="matriz-resultados"
+        <div class="container-resultados-wrapper">
+            <div
+                class="container-centro"
             >
-                <tr>
-                    <th
-                        class="th-titulo-coluna"
-                    > </th>
-                    <th
-                        class="th-titulo-linha"
-                        v-for="(itemCriterio, indexCriterio) in criteriosSegunda"
-                        :key="indexCriterio"
-                    >
-                        {{ itemCriterio }}
-                    </th>
-                </tr>
-                <tr>
-                    <th
-                        class="th-titulo-coluna"
-                    >
-                        {{ $t('tituloPesoGlobal') }}
-                    </th>
-                    <td
-                        v-for="(pesoGlobal, indexPesoGlobal) in matrizSegunda[matrizSegunda.length-1]['pesos']"
-                        :key="indexPesoGlobal"
-                    >
-                        {{ pesoGlobal.toFixed(4) }}
-                    </td>
-                </tr>
-
-                <tr
-                    v-for="(itemOption,indexOption) in optionsSegunda"
-                    :key="indexOption"
+                <table
+                    class="matriz-resultados"
                 >
-                    <th
-                        class="th-titulo-coluna"
-                    >
-                        {{ itemOption }}
-                    </th>
-                    <td
-                        v-for="(pesoCriterio,indexPesoCriterio) in matrizPrimeira"
-                        :key="indexPesoCriterio"
-                    >
-                        {{ pesoCriterio[pesoCriterio.length-1]['pesos'][indexOption].toFixed(4) }}
-                    </td>
-                </tr>
+                    <tr class="tr-titulo-tabela">
+                        <th class="th-titulo-coluna th-vazio"></th>
+                        <th
+                            :colspan="criteriosSegunda.length"
+                            class="th-titulo-tabela"
+                        >
+                            <h3>{{ $t('matrizPrioridadesGlobais') }}</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th
+                            class="th-titulo-coluna th-vazio"
+                        > </th>
+                        <th
+                            class="th-titulo-linha"
+                            v-for="(itemCriterio, indexCriterio) in criteriosSegunda"
+                            :key="indexCriterio"
+                        >
+                            {{ itemCriterio }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th
+                            class="th-titulo-coluna"
+                        >
+                            {{ $t('tituloPesoGlobal') }}
+                        </th>
+                        <td
+                            v-for="(pesoGlobal, indexPesoGlobal) in matrizSegunda[matrizSegunda.length-1]['pesos']"
+                            :key="indexPesoGlobal"
+                        >
+                            {{ pesoGlobal.toFixed(4) }}
+                        </td>
+                    </tr>
 
-            </table>
-        </div>
-        <div
-            class="container-vetor-resultado"
-        >
+                    <tr
+                        v-for="(itemOption,indexOption) in optionsSegunda"
+                        :key="indexOption"
+                    >
+                        <th
+                            class="th-titulo-coluna"
+                        >
+                            {{ itemOption }}
+                        </th>
+                        <td
+                            v-for="(pesoCriterio,indexPesoCriterio) in matrizPrimeira"
+                            :key="indexPesoCriterio"
+                        >
+                            {{ pesoCriterio[pesoCriterio.length-1]['pesos'][indexOption].toFixed(4) }}
+                        </td>
+                    </tr>
 
-            <h3>{{$t('vetorPrioridadeGlobal')}}</h3>
-            <table
-                class="vetor-resultado"
+                </table>
+            </div>
+            <div
+                class="container-vetor-resultado"
             >
-                <tr>
-                    <th
-                        class="th-titulo-linha"
-                        v-for="(itemOption, indexOption) in optionsSegunda"
-                        :key="indexOption"
-                    >
-                        {{itemOption}}
-                    </th>
-                </tr>
-                <tr>
-                    <td
-                        v-for="(itemOption, indexOption) in resultadoFinal()"
-                        :key="indexOption"
-                    >
-                        {{itemOption.toFixed(4)}}
-                    </td>
-                </tr>
+                <table
+                    class="vetor-resultado"
+                >
+                    <tr class="tr-titulo-tabela">
+                        <th class="th-titulo-coluna th-vazio"></th>
+                        <th
+                            :colspan="optionsSegunda.length"
+                            class="th-titulo-tabela"
+                        >
+                            <h3>{{ $t('vetorPrioridadeGlobal') }}</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="th-titulo-coluna th-vazio"></th>
+                        <th
+                            class="th-titulo-linha"
+                            v-for="(itemOption, indexOption) in optionsSegunda"
+                            :key="indexOption"
+                        >
+                            {{itemOption}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="th-titulo-coluna th-vazio"></th>
+                        <td
+                            v-for="(itemOption, indexOption) in resultadoFinal()"
+                            :key="indexOption"
+                        >
+                            {{itemOption.toFixed(4)}}
+                        </td>
+                    </tr>
 
-            </table>
+                </table>
+            </div>
         </div>
 
         <vueButtonProjectControl/>
@@ -155,59 +172,142 @@ export default {
 <style scoped>
 .section-resultados{
     width: 100%;
+    box-sizing: border-box;
+    padding: 20px 20px 70px;
     min-height: 600px;
     max-height: 600px;
-}
-.container-centro{
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 2%;
-    margin-left: 100px;
-    width: 70%;
-    height: 50%;
-}
-.titulo-matriz-pesos{
-    text-align: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-size: 14pt;
-}
-.container-vetor-resultado{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 100px;
-    width: 70%;
-    height: 50%;
+    overflow-y: auto;
+}
+.container-resultados-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.container-centro, .container-vetor-resultado{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 24px 0;
+    width: auto;
+}
+.tr-titulo-tabela {
+    border: none;
+    background: transparent;
+}
+.th-vazio {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.th-titulo-tabela {
+    border: none !important;
+    background: transparent !important;
+    text-align: center;
+    padding: 10px 0 16px;
+    box-shadow: none !important;
+}
+.th-titulo-tabela h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+}
+.container-vetor-resultado{
     user-select: none;
 }
-.titulo-prioridade-final{
-    text-align: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-size: 12pt;
-}
 .matriz-resultados, .vetor-resultado{
-    width: 100%;
+    width: auto;
+    border-collapse: collapse;
 }
 .matriz-resultados td, .vetor-resultado td{
-    width: 90px;
+    width: 105px;
+    min-width: 105px;
+    padding: 8px 12px;
     text-align: center;
     border: var(--borda-simples);
     background-color: var(--cor-tema-alt);
     color: var(--cor-texto-tema);
+    font-size: 0.95rem;
+    box-sizing: border-box;
 }
 .th-titulo-coluna{
-    width: 10%;
-    font-size: 12pt;
+    width: 180px;
+    min-width: 180px;
+    font-size: 1rem;
     font-weight: bold;
     text-align: left;
+    padding: 6px 12px;
+    box-sizing: border-box;
 }
 .th-titulo-linha{
-    width: 10%;
-    font-size: 12pt;
+    width: 105px;
+    min-width: 105px;
+    font-size: 1rem;
     font-weight: bold;
-    height: 50px;
+    height: 44px;
+    text-align: center;
+    padding: 6px 12px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 1920px) {
+    .matriz-resultados td, .vetor-resultado td {
+        width: 120px;
+        min-width: 120px;
+        padding: 10px 16px;
+        font-size: 1.05rem;
+    }
+    .th-titulo-coluna {
+        width: 210px;
+        min-width: 210px;
+        font-size: 1.1rem;
+    }
+    .th-titulo-linha {
+        width: 120px;
+        min-width: 120px;
+        font-size: 1.1rem;
+        height: 50px;
+    }
+}
+
+@media (min-width: 1920px) and (min-height: 900px) {
+    .section-resultados {
+        min-height: 700px;
+        max-height: 700px;
+    }
+}
+
+@media (min-width: 2560px) {
+    .matriz-resultados td, .vetor-resultado td {
+        width: 140px;
+        min-width: 140px;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+    }
+    .th-titulo-coluna {
+        width: 250px;
+        min-width: 250px;
+        font-size: 1.25rem;
+    }
+    .th-titulo-linha {
+        width: 140px;
+        min-width: 140px;
+        font-size: 1.25rem;
+        height: 56px;
+    }
+}
+
+@media (min-width: 2560px) and (min-height: 1200px) {
+    .section-resultados {
+        min-height: 820px;
+        max-height: 820px;
+    }
 }
 </style>

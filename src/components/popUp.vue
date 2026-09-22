@@ -138,40 +138,44 @@ export default {
 
 <style scoped>
     .pop-up-container {
-        height: 100%;
-        width: 500px;
+        height: auto;
+        width: min(92vw, 540px);
         position: absolute;
-        top: 5%;
-        left: 45%;
-        box-shadow: 0 0 10px var(--cor-tema);
+        top: 6%;
+        left: 36%;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
         background-color: white;
         border: 1px solid black;
+        border-radius: 6px;
+        overflow: hidden;
         z-index: 100;
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-        max-height: 400px;
+        max-height: min(88vh, 560px);
     }
     .container-conteudo-pop-up{
-        overflow: auto;
+        overflow-y: auto;
         overflow-x: hidden;
         width: 100%;
-        height: 100%;
+        padding: 8px;
+        box-sizing: border-box;
     }
     .barra-pop-up {
         width: 100%;
         background-color: var(--cor-tema);
-        height: 25px;
+        height: 28px;
+        display: flex;
+        align-items: center;
         z-index: 100;
         position: relative;
-        margin-bottom: 2px;
     }
     .barra-pop-up:hover {
         cursor: move;
     }
     .titulo-pop-up {
         color: white;
-        font-size: 12pt;
+        font-size: 11pt;
         margin: 0;
         margin-left: 10px;
     }
@@ -183,18 +187,54 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 24px;
+        height: 28px;
         box-sizing: border-box;
-        width: 20px;
+        width: 28px;
         right: 0%;
         top: 0%;
         color: white;
         background-color: transparent;
         border: none;
-        font-size: 15pt;
+        font-size: 16pt;
+        cursor: pointer;
     }
     .close-pop-up:hover {
-        color: red;
-        cursor: default;
+        color: #ff6b6b;
+    }
+
+    @media (min-width: 1920px) {
+        .pop-up-container {
+            width: 660px;
+            max-height: min(88vh, 650px);
+        }
+        .barra-pop-up {
+            height: 32px;
+        }
+        .titulo-pop-up {
+            font-size: 13pt;
+        }
+        .close-pop-up {
+            height: 32px;
+            width: 32px;
+            font-size: 18pt;
+        }
+    }
+
+    @media (min-width: 2560px) {
+        .pop-up-container {
+            width: 780px;
+            max-height: min(88vh, 760px);
+        }
+        .barra-pop-up {
+            height: 36px;
+        }
+        .titulo-pop-up {
+            font-size: 15pt;
+        }
+        .close-pop-up {
+            height: 36px;
+            width: 36px;
+            font-size: 20pt;
+        }
     }
 </style>
