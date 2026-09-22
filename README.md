@@ -63,8 +63,6 @@ We welcome contributions from the community! Here’s how you can help:
 
 This project is licensed under the MIT License - see the LICENSE file for more details.
 
-
-
 ## Referências
 
 1. **CARDOZO, F. A. C. et al.** _Choice of access for underground mining for feasibility studies_. REM-International Engineering Journal, v. 76, p. 187-193, 2023.
