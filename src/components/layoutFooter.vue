@@ -7,7 +7,7 @@
     >
 
         <img
-            id="ufrgs" src="@\assets\Imagens\ufrgs.png"
+            id="ufrgs" src="@/assets/Imagens/ufrgs_branca_png.svg"
             alt="logo_ufrgs_img"
         >
 
@@ -43,7 +43,7 @@
         </div>
 
         <img
-            id="laprom" src="@\assets\Imagens\laprom.png"
+            id="laprom" src="@/assets/Imagens/laprom_svg.svg"
             alt="logo_laprom_png"
         >
 
@@ -105,6 +105,7 @@ export default {
         border-radius: 30px;
         width: 98%;
         margin: 8px auto 0;
+        padding: 8px 16px;
         justify-content: space-around;
         align-items: center;
         color: var(--cor-texto-tema);
@@ -127,14 +128,42 @@ export default {
         text-decoration: underline;
     }
     #ufrgs{
-        transform: scale(0.7);
+        height: 56px;
+        max-height: 65px;
+        width: auto;
+        object-fit: contain;
     }
     #laprom{
-        transform: scale(0.9);
+        height: 50px;
+        max-height: 60px;
+        width: auto;
+        object-fit: contain;
     }
     ul{
         list-style: none;
     }
+
+@media (min-width: 1920px) {
+    #ufrgs{
+        height: 70px;
+        max-height: 80px;
+    }
+    #laprom{
+        height: 62px;
+        max-height: 72px;
+    }
+}
+
+@media (min-width: 2560px) {
+    #ufrgs{
+        height: 84px;
+        max-height: 95px;
+    }
+    #laprom{
+        height: 76px;
+        max-height: 88px;
+    }
+}
 
 @media (max-width:800px) {
     #ufrgs{
