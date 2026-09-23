@@ -1,52 +1,40 @@
 <template>
-
-    <div class="slider-container">
-        <div
-            class="text-container"
-        >
+    <div :class="['slider-container', widthClass]">
+        <div class="text-container">
             <h3>
-                {{ $t(`${texto}`)  }}
+                {{ $t(`${texto}`) }}
             </h3>
         </div>
 
-        <input
-            type="range"
-            min="0"
-            max="100"
-            step="6.25"
-            v-model='valorInput'
-            :id="id"
-            :class="classe"
-            ref="slider"
-            :name="name"
-        >
-        <div class="span-container">
-            <div class="left-span-container">
-                <span class="slider-span" id="slider-span-19" draggable="false">1/9</span>
-                <span class="slider-span" id="slider-span-18" draggable="false">1/8</span>
-                <span class="slider-span" id="slider-span-17" draggable="false">1/7</span>
-                <span class="slider-span" id="slider-span-16" draggable="false">1/6</span>
-                <span class="slider-span" id="slider-span-15" draggable="false">1/5</span>
-                <span class="slider-span" id="slider-span-14" draggable="false">1/4</span>
-                <span class="slider-span" id="slider-span-13" draggable="false">1/3</span>
-                <span class="slider-span" id="slider-span-12" draggable="false">1/2</span>
-            </div>
-            <div class="right-span-container">
-                <span class="slider-span" id="slider-span-1" draggable="false">1</span>
-                <span class="slider-span" id="slider-span-2" draggable="false">2</span>
-                <span class="slider-span" id="slider-span-3" draggable="false">3</span>
-                <span class="slider-span" id="slider-span-4" draggable="false">4</span>
-                <span class="slider-span" id="slider-span-5" draggable="false">5</span>
-                <span class="slider-span" id="slider-span-6" draggable="false">6</span>
-                <span class="slider-span" id="slider-span-7" draggable="false">7</span>
-                <span class="slider-span" id="slider-span-8" draggable="false">8</span>
-                <span class="slider-span" id="slider-span-9" draggable="false">9</span>
+        <div class="slider-wrapper">
+            <div class="slider-track-box">
+                <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="6.25"
+                    v-model.number="valorInput"
+                    :id="id"
+                    :class="classe"
+                    ref="slider"
+                    :name="name"
+                >
+                <div class="span-container">
+                    <span
+                        v-for="step in steps"
+                        :key="step.id"
+                        :class="['slider-span', `level-${step.level}`]"
+                        :id="`slider-span-${step.id}`"
+                        :style="stepStyle(step.ratio)"
+                        draggable="false"
+                        @click="setValor(step.valor)"
+                    >{{ step.label }}</span>
+                </div>
             </div>
         </div>
-
     </div>
-
 </template>
+
 <script>
 export default {
     name: "vue-range-button",
@@ -55,7 +43,7 @@ export default {
             type: String,
             default: "undefined"
         },
-        name:{
+        name: {
             type: String,
             default: "undefined"
         },
@@ -75,30 +63,82 @@ export default {
     emits: ["slider-value"],
     data() {
         return {
-            valorInput: 50
+            valorInput: 50,
+            containerWidth: 500,
+            steps: [
+                { id: "19", label: "1/9", valor: 0,     ratio: 0,      level: 1 },
+                { id: "18", label: "1/8", valor: 6.25,  ratio: 0.0625, level: 4 },
+                { id: "17", label: "1/7", valor: 12.5,  ratio: 0.125,  level: 3 },
+                { id: "16", label: "1/6", valor: 18.75, ratio: 0.1875, level: 4 },
+                { id: "15", label: "1/5", valor: 25,    ratio: 0.25,   level: 2 },
+                { id: "14", label: "1/4", valor: 31.25, ratio: 0.3125, level: 4 },
+                { id: "13", label: "1/3", valor: 37.5,  ratio: 0.375,  level: 3 },
+                { id: "12", label: "1/2", valor: 43.75, ratio: 0.4375, level: 4 },
+                { id: "1",  label: "1",   valor: 50,    ratio: 0.5,    level: 1 },
+                { id: "2",  label: "2",   valor: 56.25, ratio: 0.5625, level: 4 },
+                { id: "3",  label: "3",   valor: 62.5,  ratio: 0.625,  level: 3 },
+                { id: "4",  label: "4",   valor: 68.75, ratio: 0.6875, level: 4 },
+                { id: "5",  label: "5",   valor: 75,    ratio: 0.75,   level: 2 },
+                { id: "6",  label: "6",   valor: 81.25, ratio: 0.8125, level: 4 },
+                { id: "7",  label: "7",   valor: 87.5,  ratio: 0.875,  level: 3 },
+                { id: "8",  label: "8",   valor: 93.75, ratio: 0.9375, level: 4 },
+                { id: "9",  label: "9",   valor: 100,   ratio: 1,      level: 1 }
+            ]
+        }
+    },
+    computed: {
+        widthClass() {
+            if (this.containerWidth >= 460) return "slider-xl"
+            if (this.containerWidth >= 350) return "slider-lg"
+            if (this.containerWidth >= 250) return "slider-md"
+            return "slider-sm"
         }
     },
     watch: {
+        valor(newVal) {
+            this.valorInput = newVal
+        },
         valorInput() {
             this.enviarValor()
             this.sliderColor()
         }
     },
     mounted() {
-        // O valor inicial do sliderButton é igual ao recebido pela prop
         this.valorInput = this.valor
+        this.sliderColor()
+
+        if (typeof ResizeObserver !== "undefined" && this.$el) {
+            this.resizeObserver = new ResizeObserver((entries) => {
+                for (const entry of entries) {
+                    this.containerWidth = entry.contentRect.width
+                }
+            })
+            this.resizeObserver.observe(this.$el)
+        }
+    },
+    beforeUnmount() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect()
+        }
     },
     methods: {
         enviarValor() {
-            this.$emit("slider-value", [this.classe, this.id, this.valorInput, this.name])
+            this.$emit("slider-value", [this.classe, this.id, Number(this.valorInput), this.name])
         },
-
+        setValor(val) {
+            this.valorInput = val
+        },
+        stepStyle(ratio) {
+            return {
+                left: `calc(${ratio * 100}% + ${(1 - 2 * ratio)} * var(--thumb-radius))`
+            }
+        },
         sliderColor() {
             let meioEnd
             let meioStart
             let left
             let right
-            const valor = this.valorInput
+            const valor = Number(this.valorInput)
             if (valor >= 50) {
                 right = 100 - valor
                 meioEnd = valor
@@ -110,141 +150,199 @@ export default {
                 meioStart = valor
                 left = valor
             }
-            this.$refs.slider.style.background = "linear-gradient(90deg,"
-            + `var(--cor-tema) 0%, white ${left}%,`
-            + `var(--cor-tema) ${meioStart}%, var(--cor-tema) ${meioEnd}%,`
-            + `white ${right}%, var(--cor-tema) 100%)`
-
-            // linear-gradient(90deg, var(--cor-tema) 0%, white ${left}%, var(--cor-tema) ${meioStart}%, var(--cor-tema) ${meioEnd}%, white ${right}%, var(--cor-tema) 100%)`
-            // this.$refs.slider.style.background = "linear-gradient(90deg," + "red 0%," + "red " + left + "%, " + "var(--cor-hover)" + meioStart + "%," + "var(--cor-hover)" + meioEnd + "%, " + "blue " + right + "%," + "blue " + "100" + "%  )"
+            if (this.$refs.slider) {
+                this.$refs.slider.style.background = "linear-gradient(90deg,"
+                + `var(--cor-tema) 0%, white ${left}%,`
+                + `var(--cor-tema) ${meioStart}%, var(--cor-tema) ${meioEnd}%,`
+                + `white ${right}%, var(--cor-tema) 100%)`
+            }
         }
     }
 }
 </script>
-<style scoped>
 
-@media (max-width:930px) {
-    #slider-span-18, #slider-span-17, #slider-span-16, #slider-span-14, #slider-span-15, #slider-span-13, #slider-span-12, #slider-span-2, #slider-span-3, #slider-span-4, #slider-span-5, #slider-span-6, #slider-span-7, #slider-span-8 {
-        display: none;
-    }
-    #slider-span-1{
-        transform: translateX(-6.5px)
-    }
-}
-.slider-container{
+<style scoped>
+.slider-container {
+    --thumb-size: 16px;
+    --thumb-radius: 8px;
     position: relative;
-    margin: auto;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    container-type: inline-size;
+    container-name: slider;
+}
+
+.text-container {
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 6px;
 }
 
 h3 {
     display: flex;
-    text-align: left;
-    font-size: 11pt;
-}
-.text-container{
     text-align: center;
-    max-width: 100%;
+    justify-content: center;
+    font-size: 11pt;
+    margin: 0;
 }
-.span-container {
+
+.slider-wrapper {
+    position: relative;
     width: 100%;
-    max-width: 100%;
-    display: flex;
-    font-size: 8pt;
     box-sizing: border-box;
-    gap: 10px;
+    padding: 0 4px;
 }
-.left-span-container{
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+.slider-track-box {
+    position: relative;
+    width: 100%;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 50px;
+    opacity: 0.8;
+    background: linear-gradient(90deg, var(--cor-tema) 0%, white 50%, var(--cor-tema) 50%, var(--cor-tema) 50%, white 50%, var(--cor-tema) 100%);
+    border: var(--borda-simples);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    transition: opacity .2s, box-shadow .2s;
+    position: relative;
+    z-index: 5;
+    display: block;
+    margin: 8px 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.right-span-container  {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    box-sizing: border-box;
-}
-.slider-span{
-    user-select: none;
-    -webkit-user-drag: none;
-}
-input {
-  width: 100%;
-  height: 6px;
-  border-radius: 50px;
-  opacity: 0.7;
-  background: linear-gradient(90deg, var(--cor-tema) 0%, white 50%, var(--cor-tema) 50%, var(--cor-tema) 50%, white 35%, var(--cor-tema) 100%);
-  border: 1pt solid black;
-  appearance: none;
-  outline: none;
-  transition: .2s;
-  transition: opacity .2s;
-  position: relative;
-  z-index: 5;
-}
-input:hover{
-    background-color: red;
-    transform: scale(1.01);
+input[type="range"]:hover {
+    opacity: 1;
     box-shadow: 0 0 5px var(--cor-tema);
     cursor: pointer;
 }
 
-/* THUMB do CHROME */
-input::-webkit-slider-thumb {
-  appearance: none;
-  width: 15px;
-  height:15px;
-  border-radius: 50%;
-  background: var(--cor-tema);
-  border: var(--borda-simples) ;
-  cursor: pointer;
-  z-index: 6;
+/* THUMB WebKit */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    border-radius: 50%;
+    background: var(--cor-tema);
+    border: var(--borda-simples);
+    cursor: pointer;
+    z-index: 6;
+    box-sizing: border-box;
 }
 
-/* THUMB do MOZILA */
-input::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: white;
-  cursor: pointer;
+/* THUMB Mozilla */
+input[type="range"]::-moz-range-thumb {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    border-radius: 50%;
+    background: var(--cor-tema);
+    border: var(--borda-simples);
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.span-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    box-sizing: border-box;
+    padding: 0 1px;
+    margin-top: 2px;
+}
+
+.slider-span {
+    position: absolute;
+    transform: translateX(-50%);
+    user-select: none;
+    -webkit-user-drag: none;
+    font-size: 8pt;
+    line-height: 1;
+    cursor: pointer;
+    color: #222;
+    transition: color 0.15s ease, font-weight 0.15s ease;
+    white-space: nowrap;
+}
+
+.slider-span:hover {
+    color: var(--cor-tema, #000);
+    font-weight: bold;
+}
+
+/* Level 1 labels (1/9, 1, 9) are always visible */
+.slider-span.level-1 {
+    display: inline-block;
+}
+
+/* By default (narrow), hide level 2, 3, 4 */
+.slider-span.level-2,
+.slider-span.level-3,
+.slider-span.level-4 {
+    display: none;
+}
+
+/* Container Queries for progressive label disclosure */
+@container slider (min-width: 250px) {
+    .slider-span.level-2 {
+        display: inline-block;
+    }
+}
+
+@container slider (min-width: 350px) {
+    .slider-span.level-3 {
+        display: inline-block;
+    }
+}
+
+@container slider (min-width: 460px) {
+    .slider-span.level-4 {
+        display: inline-block;
+    }
+}
+
+/* Fallback via ResizeObserver classes */
+.slider-container.slider-md .slider-span.level-2,
+.slider-container.slider-lg .slider-span.level-2,
+.slider-container.slider-lg .slider-span.level-3,
+.slider-container.slider-xl .slider-span.level-2,
+.slider-container.slider-xl .slider-span.level-3,
+.slider-container.slider-xl .slider-span.level-4 {
+    display: inline-block;
 }
 
 @media (min-width: 1920px) {
     h3 {
         font-size: 1rem;
     }
-    .span-container {
+    .slider-span {
         font-size: 9pt;
     }
 }
 
 @media (min-width: 2560px) {
+    .slider-container {
+        --thumb-size: 18px;
+        --thumb-radius: 9px;
+    }
     h3 {
         font-size: 1.15rem;
     }
-    .span-container {
+    .slider-span {
         font-size: 10pt;
     }
-    input {
+    input[type="range"] {
         height: 8px;
     }
-    input::-webkit-slider-thumb {
-        width: 18px;
-        height: 18px;
-    }
 }
-
 </style>

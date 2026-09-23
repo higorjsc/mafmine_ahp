@@ -11,9 +11,8 @@
                     class="matriz-resultados"
                 >
                     <tr class="tr-titulo-tabela">
-                        <th class="th-titulo-coluna th-vazio"></th>
                         <th
-                            :colspan="criteriosSegunda.length"
+                            :colspan="criteriosSegunda.length + 1"
                             class="th-titulo-tabela"
                         >
                             <h3>{{ $t('matrizPrioridadesGlobais') }}</h3>
@@ -71,7 +70,6 @@
                     class="vetor-resultado"
                 >
                     <tr class="tr-titulo-tabela">
-                        <th class="th-titulo-coluna th-vazio"></th>
                         <th
                             :colspan="optionsSegunda.length"
                             class="th-titulo-tabela"
@@ -80,7 +78,6 @@
                         </th>
                     </tr>
                     <tr>
-                        <th class="th-titulo-coluna th-vazio"></th>
                         <th
                             class="th-titulo-linha"
                             v-for="(itemOption, indexOption) in optionsSegunda"
@@ -90,7 +87,6 @@
                         </th>
                     </tr>
                     <tr>
-                        <th class="th-titulo-coluna th-vazio"></th>
                         <td
                             v-for="(itemOption, indexOption) in resultadoFinal()"
                             :key="indexOption"
@@ -134,35 +130,23 @@ export default {
         resultadoFinal() {
             const primeira = this.matrizPrimeira
             const segunda = this.matrizSegunda
-            // console.log(segunda)
-            const multiplicaPeso = (index) => {
-                const vetor = []
-                for (let j = 0; j < segunda[index].length; j++) {
-                    // console.log(segunda[segunda.length - 1]["pesos"][i])
-                    vetor.push(
-                        segunda[segunda.length - 1]["pesos"][index] * primeira[index][primeira[index].length - 1]["pesos"][j]
-                    )
-                }
-                return vetor
+            if (!primeira || !primeira.length || !segunda || !segunda.length) {
+                return []
             }
-            const pesos = []
-            for (let i = 0; i < primeira.length; i++) {
-                pesos.push(multiplicaPeso(i))
-            }
-            const resultado = []
-            const  somaColuna = (index)=> {
-                let soma = 0
-                for (let lin = 0; lin < pesos.length; lin++) {
-                    soma += pesos[lin][index]
-                }
-                return soma
-            }
-            for (let index = 0; index < pesos[0].length; index++) {
-                resultado.push(somaColuna(index))
-            }
-            // A linha de código abaixo é explicitamente uma gambiarra
-            resultado.splice(this.optionsSegunda.length)
+            const pesosCriterios = segunda[segunda.length - 1]["pesos"]
+            const numOpcoes = this.optionsSegunda.length
+            const numCriterios = primeira.length
 
+            const resultado = []
+            for (let k = 0; k < numOpcoes; k++) {
+                let soma = 0
+                for (let c = 0; c < numCriterios; c++) {
+                    const pesoCriterio = pesosCriterios[c] || 0
+                    const pesoOpcaoNoCriterio = (primeira[c] && primeira[c][primeira[c].length - 1]["pesos"][k]) || 0
+                    soma += pesoCriterio * pesoOpcaoNoCriterio
+                }
+                resultado.push(soma)
+            }
             return resultado
         }
     }
@@ -186,7 +170,7 @@ export default {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-    width: auto;
+    width: 100%;
     max-width: 100%;
     overflow-x: auto;
 }
@@ -195,7 +179,7 @@ export default {
     flex-direction: column;
     align-items: center;
     margin: 0 0 24px 0;
-    width: auto;
+    width: 100%;
 }
 .tr-titulo-tabela {
     border: none;
@@ -224,6 +208,7 @@ export default {
 }
 .matriz-resultados, .vetor-resultado{
     width: auto;
+    margin: 0 auto;
     border-collapse: collapse;
 }
 .matriz-resultados td, .vetor-resultado td{
