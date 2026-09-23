@@ -27,6 +27,13 @@ export default {
             return this.$store.getters.currentViewProgress
         }
     },
+    watch: {
+        viewProgress() {
+            this.changeTabOpacity()
+            const atual = this.$store.getters.currentTabViewAtual || "/inputs"
+            this.changeAtualTab(atual)
+        }
+    },
     mounted() {
         this.changeTabOpacity()
         this.changeAtualTab("/inputs")

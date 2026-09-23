@@ -230,10 +230,14 @@ export default {
                 this[arrayName][index] = prefix + (index + 1)
             }
         },
+        resetProgress() {
+            this.$store.dispatch("changeViewProgress", 1)
+        },
         addCriterio() {
             if (this.criteriosLabelPrimeira.length < 9) {
                 this.criteriosLabelPrimeira.push(`Criterion-${this.criteriosLabelPrimeira.length + 1}`)
                 this.criteriosSimboloPrimeira.push(`C${this.criteriosSimboloPrimeira.length + 1}`)
+                this.resetProgress()
             } else {
                 window.alert("Você atingiu o limite de inputs para o método!")
             }
@@ -242,6 +246,7 @@ export default {
             if (this.criteriosLabelPrimeira.length > 3) {
                 this.criteriosLabelPrimeira.splice(index, 1)
                 this.criteriosSimboloPrimeira.splice(index, 1)
+                this.resetProgress()
             } else {
                 window.alert("Você deve análisar no mínimo 3 critérios!")
             }
@@ -250,6 +255,7 @@ export default {
             if (this.optionsLabelPrimeira.length < 5) {
                 this.optionsLabelPrimeira.push(`Option-${this.optionsLabelPrimeira.length + 1}`)
                 this.optionsSimboloPrimeira.push(`O${this.optionsSimboloPrimeira.length + 1}`)
+                this.resetProgress()
             } else {
                 window.alert("Você atingiu o limite de opções para o método!")
             }
@@ -258,6 +264,7 @@ export default {
             if (this.optionsLabelPrimeira.length > 3) {
                 this.optionsLabelPrimeira.splice(index, 1)
                 this.optionsSimboloPrimeira.splice(index, 1)
+                this.resetProgress()
             } else {
                 window.alert("Você deve análisar no mínimo 3 opções!")
             }
